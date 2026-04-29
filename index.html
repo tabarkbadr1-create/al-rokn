@@ -3,114 +3,930 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الركن - Al-Rokn</title>
+    <title>الركن الهندسي | كاوتش - كسر زيرو - قطع غيار</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        brand: { 50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#f97316',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12' },
+                        dark: { 50:'#0a0a0f',100:'#080810',200:'#06060b',300:'#030308',400:'#02040a',500:'#010208' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 60px 40px;
-            text-align: center;
-            max-width: 600px;
-            animation: slideUp 0.6s ease-out;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        h1 {
-            color: #667eea;
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            color: #764ba2;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-        p {
-            color: #666;
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        button {
-            padding: 12px 30px;
-            font-size: 1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-        .btn-secondary:hover {
-            background: #667eea;
-            color: white;
-        }
-        .footer {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #f0f0f0;
-            color: #999;
-            font-size: 0.9em;
-        }
+        * { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background: #02040a; color: #fff; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #02040a; }
+        ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 3px; }
+
+        .glass { background: rgba(10,10,20,0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); }
+        .glass-light { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+        .glow-orange { box-shadow: 0 0 30px rgba(249,115,22,0.15), 0 0 60px rgba(249,115,22,0.05); }
+        .glow-orange-strong { box-shadow: 0 0 40px rgba(249,115,22,0.3), 0 0 80px rgba(249,115,22,0.1); }
+        .text-glow { text-shadow: 0 0 30px rgba(249,115,22,0.4); }
+
+        .hero-gradient { background: linear-gradient(135deg, #02040a 0%, #0f0a05 30%, #1a0f05 50%, #0f0a05 70%, #02040a 100%); }
+        .hero-overlay { background: radial-gradient(ellipse at 50% 50%, rgba(249,115,22,0.08) 0%, transparent 70%); }
+
+        .card-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.2); }
+
+        .btn-primary { background: linear-gradient(135deg, #f97316, #ea580c); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(249,115,22,0.4); }
+
+        .btn-whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); transition: all 0.3s ease; }
+        .btn-whatsapp:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(37,211,102,0.4); }
+
+        .btn-call { background: linear-gradient(135deg, #3b82f6, #2563eb); transition: all 0.3s ease; }
+        .btn-call:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(59,130,246,0.4); }
+
+        .floating { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+        .pulse-ring { animation: pulseRing 2s ease-out infinite; }
+        @keyframes pulseRing { 0%{box-shadow:0 0 0 0 rgba(249,115,22,0.4)} 100%{box-shadow:0 0 0 20px rgba(249,115,22,0)} }
+
+        .slide-up { opacity:0; transform:translateY(40px); transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .slide-up.visible { opacity:1; transform:translateY(0); }
+
+        .product-img { transition: transform 0.5s ease; }
+        .product-card:hover .product-img { transform: scale(1.1); }
+
+        .nav-blur { background: rgba(2,4,10,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .nav-scrolled { background: rgba(2,4,10,0.95); }
+
+        .tab-active { background: linear-gradient(135deg, #f97316, #ea580c); color: white; }
+        .tab-inactive { background: rgba(255,255,255,0.05); color: #94a3b8; }
+        .tab-inactive:hover { background: rgba(255,255,255,0.1); color: white; }
+
+        .admin-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; transition: all 0.3s ease; }
+        .admin-input:focus { outline: none; border-color: #f97316; box-shadow: 0 0 15px rgba(249,115,22,0.2); }
+
+        .toast { animation: toastIn 0.4s ease, toastOut 0.4s ease 2.6s forwards; }
+        @keyframes toastIn { from{transform:translateY(100px);opacity:0} to{transform:translateY(0);opacity:1} }
+        @keyframes toastOut { from{transform:translateY(0);opacity:1} to{transform:translateY(100px);opacity:0} }
+
+        .social-icon { transition: all 0.3s ease; }
+        .social-icon:hover { transform: translateY(-5px) scale(1.1); }
+
+        .branch-card { position: relative; overflow: hidden; }
+        .branch-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, #f97316, transparent); }
+
+        .counter { font-variant-numeric: tabular-nums; }
+
+        @keyframes spin-slow { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+        .spin-slow { animation: spin-slow 20s linear infinite; }
+
+        .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent); }
+
+        .ig-border { border-color: rgba(225,48,108,0.3); }
+        .ig-border:hover { border-color: rgba(225,48,108,0.6); background: rgba(225,48,108,0.1); }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>🎯 الركن</h1>
-        <p class="subtitle">Al-Rokn Project</p>
-        <p>مرحبا بك في مشروع الركن! 🚀</p>
-        <p>هذا المشروع تم نشره بنجاح على Vercel</p>
-        
-        <div class="button-group">
-            <button class="btn-primary" onclick="alert('مرحبا! 👋 الركن جاهز للعمل')">ابدأ الآن</button>
-            <button class="btn-secondary" onclick="window.location.href='https://github.com/tabarkbadr1-create/al-rokn'">GitHub Repo</button>
+<body class="min-h-screen overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center glow-orange">
+                        <i class="fas fa-cog text-white text-lg sm:text-xl spin-slow"></i>
+                    </div>
+                    <div>
+                        <h1 id="nav-company" class="text-base sm:text-lg font-bold text-white">الركن الهندسي</h1>
+                        <p class="text-[10px] sm:text-xs text-brand-400 font-medium">لصيانة السيارات</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-sm text-slate-300 hover:text-brand-400 transition-colors">الرئيسية</a>
+                    <a href="#services" class="text-sm text-slate-300 hover:text-brand-400 transition-colors">خدماتنا</a>
+                    <a href="#products" class="text-sm text-slate-300 hover:text-brand-400 transition-colors">منتجاتنا</a>
+                    <a href="#branches" class="text-sm text-slate-300 hover:text-brand-400 transition-colors">فروعنا</a>
+                    <a href="#contact" class="text-sm text-slate-300 hover:text-brand-400 transition-colors">تواصل معنا</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="showAdminLogin()" class="text-slate-400 hover:text-brand-400 transition-colors p-2" title="لوحة التحكم">
+                        <i class="fas fa-lock text-sm"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-2">
+                        <i class="fas fa-bars text-lg" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        
-        <div class="footer">
-            <p>✨ تم الإنشاء بواسطة tabarkbadr1-create</p>
-            <p>📅 29 أبريل 2026</p>
+        <div id="mobileMenu" class="hidden md:hidden border-t border-white/5">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-brand-400 py-2">الرئيسية</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-brand-400 py-2">خدماتنا</a>
+                <a href="#products" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-brand-400 py-2">منتجاتنا</a>
+                <a href="#branches" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-brand-400 py-2">فروعنا</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-brand-400 py-2">تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero-gradient relative min-h-screen flex items-center pt-20">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="absolute top-32 right-10 w-72 h-72 bg-brand-500/5 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-brand-600/5 rounded-full blur-[120px]"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                        <span class="w-2 h-2 bg-brand-500 rounded-full pulse-ring"></span>
+                        <span class="text-xs font-medium text-brand-400">أفضل خدمة في مصر</span>
+                    </div>
+                    <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight mb-6">
+                        <span class="text-white">الركن</span><br>
+                        <span class="text-glow bg-gradient-to-l from-brand-400 to-brand-600 bg-clip-text text-transparent">الهندسي</span>
+                    </h1>
+                    <p id="hero-subtitle" class="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                        خبرة مميزة في الكاوتش الجديد وكسر الزيرو وقطع الغيار بأعلى جودة وأفضل الأسعار. فرعنا يخدمك في شبرا والجيزة.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://wa.me/201211114895" target="_blank" class="btn-whatsapp px-8 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-3 text-base">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            واتساب الآن
+                        </a>
+                        <a href="tel:01211114895" class="btn-call px-8 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-3 text-base">
+                            <i class="fas fa-phone text-lg"></i>
+                            اتصل بنا
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-12 max-w-md mx-auto lg:mx-0">
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-brand-400 counter" data-target="15">0</div>
+                            <div class="text-xs text-slate-500 mt-1">سنة خبرة</div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-brand-400 counter" data-target="10000">0</div>
+                            <div class="text-xs text-slate-500 mt-1">عميل سعيد</div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-brand-400 counter" data-target="3">0</div>
+                            <div class="text-xs text-slate-500 mt-1">فروع</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden lg:block relative">
+                    <div class="relative floating">
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-500/20 to-transparent rounded-3xl blur-2xl"></div>
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=500&fit=crop&q=90" alt="إطارات سيارات" class="relative w-full h-[500px] object-cover rounded-3xl border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/80 via-transparent to-transparent rounded-3xl"></div>
+                        <div class="absolute bottom-6 right-6 glass px-5 py-3 rounded-2xl">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center">
+                                    <i class="fas fa-shield-halved text-brand-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-white">ضمان حقيقي</div>
+                                    <div class="text-xs text-slate-400">على جميع المنتجات</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span class="text-xs text-slate-500">اكتشف المزيد</span>
+            <div class="w-6 h-10 rounded-full border-2 border-slate-600 flex justify-center pt-2">
+                <div class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="relative py-20 sm:py-28">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-400 via-dark-300 to-dark-400"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <span class="inline-block text-xs font-bold text-brand-400 tracking-widest uppercase mb-4 px-4 py-2 rounded-full glass">خدماتنا</span>
+                <h2 id="services-title" class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">كل ما تحتاجه لسيارتك</h2>
+                <p id="services-subtitle" class="text-slate-400 max-w-2xl mx-auto">نقدم لك أفضل الخدمات بأسعار تنافسية وجودة عالية مع ضمان حقيقي على كل الخدمات</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
+                <!-- كاوتش جديد -->
+                <div class="glass card-hover rounded-2xl p-6 sm:p-8 slide-up group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-700/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-circle-dot text-2xl text-brand-400"></i>
+                    </div>
+                    <h3 id="service1-title" class="text-xl sm:text-2xl font-bold text-white mb-3">كاوتش جديد</h3>
+                    <p id="service1-desc" class="text-slate-400 text-sm leading-relaxed mb-6">جميع أحجام الكاوتش المتوفرة بأفضل الأسعار. ماركات عالمية وأصلية مع ضمان شامل على كل إطار.</p>
+                    <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=300&fit=crop&q=90" alt="إطارات كاوتش جديدة" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/60 to-transparent"></div>
+                    </div>
+                    <a href="https://wa.me/201211114895?text=عايز استفسر عن الكاوتش الجديد" target="_blank" class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-bold">
+                        <i class="fab fa-whatsapp"></i> استفسر الآن
+                    </a>
+                </div>
+                <!-- كسر الزيرو -->
+                <div class="glass card-hover rounded-2xl p-6 sm:p-8 slide-up group" style="transition-delay:0.1s">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500/20 to-red-700/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-gauge-high text-2xl text-red-400"></i>
+                    </div>
+                    <h3 id="service2-title" class="text-xl sm:text-2xl font-bold text-white mb-3">كسر الزيرو</h3>
+                    <p id="service2-desc" class="text-slate-400 text-sm leading-relaxed mb-6">خدمة كسر الزيرو الاحترافية بأحدث الأجهزة والتقنيات مع الحفاظ على ضمان السيارة الأصلي.</p>
+                    <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=500&h=300&fit=crop&q=90" alt="كسر زيرو سيارات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/60 to-transparent"></div>
+                    </div>
+                    <a href="https://wa.me/201211114895?text=عايز استفسر عن خدمة كسر الزيرو" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-bold bg-gradient-to-r from-red-500 to-red-700 hover:shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all hover:scale-105">
+                        <i class="fab fa-whatsapp"></i> استفسر الآن
+                    </a>
+                </div>
+                <!-- قطع الغيار -->
+                <div class="glass card-hover rounded-2xl p-6 sm:p-8 slide-up group" style="transition-delay:0.2s">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-700/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-wrench text-2xl text-emerald-400"></i>
+                    </div>
+                    <h3 id="service3-title" class="text-xl sm:text-2xl font-bold text-white mb-3">قطع الغيار</h3>
+                    <p id="service3-desc" class="text-slate-400 text-sm leading-relaxed mb-6">قطع غيار أصلية وتقليد ممتاز لجميع أنواع السيارات. توفرنا المستمر يضمن لك سرعة الصيانة.</p>
+                    <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&h=300&fit=crop&q=90" alt="قطع غيار سيارات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/60 to-transparent"></div>
+                    </div>
+                    <a href="https://wa.me/201211114895?text=عايز استفسر عن قطع الغيار" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-bold bg-gradient-to-r from-emerald-500 to-emerald-700 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all hover:scale-105">
+                        <i class="fab fa-whatsapp"></i> استفسر الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- Products -->
+    <section id="products" class="relative py-20 sm:py-28">
+        <div class="absolute inset-0 bg-dark-400"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500/5 rounded-full blur-[120px]"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <span class="inline-block text-xs font-bold text-brand-400 tracking-widest uppercase mb-4 px-4 py-2 rounded-full glass">معرض المنتجات</span>
+                <h2 id="products-title" class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">منتجاتنا المميزة</h2>
+                <p id="products-subtitle" class="text-slate-400 max-w-2xl mx-auto">تشكيلة واسعة من الإطارات وقطع الغيار تلبي جميع احتياجاتك</p>
+            </div>
+            <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- إطار رياضي -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&h=280&fit=crop&q=90" alt="إطار رياضي" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                        <div class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-brand-500/90 text-white text-[10px] font-bold">جديد</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">إطار رياضي</h4>
+                        <p class="text-xs text-slate-400">مقاسات متعددة</p>
+                    </div>
+                </div>
+                <!-- فلاتر -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.05s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=400&h=280&fit=crop&q=90" alt="فلاتر سيارات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">فلاتر سيارات</h4>
+                        <p class="text-xs text-slate-400">أصلية وتقليد</p>
+                    </div>
+                </div>
+                <!-- إطارات سيدان -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.1s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=400&h=280&fit=crop&q=90" alt="إطارات سيدان" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                        <div class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-emerald-500/90 text-white text-[10px] font-bold">مفضل</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">إطارات سيدان</h4>
+                        <p class="text-xs text-slate-400">جميع الماركات</p>
+                    </div>
+                </div>
+                <!-- فرامل -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.15s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=400&h=280&fit=crop&q=90" alt="فرامل سيارات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">فرامل</h4>
+                        <p class="text-xs text-slate-400">أصلية مضمونة</p>
+                    </div>
+                </div>
+                <!-- بطاريات -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.2s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=280&fit=crop&q=90" alt="بطاريات سيارات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">بطاريات</h4>
+                        <p class="text-xs text-slate-400">ضمان سنة</p>
+                    </div>
+                </div>
+                <!-- إطارات SUV -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.25s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=280&fit=crop&q=90" alt="إطارات SUV" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                        <div class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-red-500/90 text-white text-[10px] font-bold">عرض</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">إطارات SUV</h4>
+                        <p class="text-xs text-slate-400">مقاسات كبيرة</p>
+                    </div>
+                </div>
+                <!-- شمعات -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.3s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=280&fit=crop&q=90" alt="شمعات إضاءة" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">شمعات إضاءة</h4>
+                        <p class="text-xs text-slate-400">LED عالية</p>
+                    </div>
+                </div>
+                <!-- زيوت -->
+                <div class="product-card glass-light rounded-2xl overflow-hidden card-hover slide-up group" style="transition-delay:0.35s">
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=400&h=280&fit=crop&q=90" alt="زيوت محركات" class="w-full h-full object-cover product-img">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400/70 to-transparent"></div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-sm font-bold text-white mb-1">زيوت محركات</h4>
+                        <p class="text-xs text-slate-400">جميع الأنواع</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- Branches -->
+    <section id="branches" class="relative py-20 sm:py-28">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-400 via-dark-300 to-dark-400"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <span class="inline-block text-xs font-bold text-brand-400 tracking-widest uppercase mb-4 px-4 py-2 rounded-full glass">فروعنا</span>
+                <h2 id="branches-title" class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">فروعنا</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">فرعنا يخدمك في شبرا مصر والجيزة - جاهزين لاستقبالك على مدار الأسبوع</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- فرع شبرا -->
+                <div class="branch-card glass card-hover rounded-2xl overflow-hidden slide-up">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1562141961-b5d1ce1e0b25?w=600&h=300&fit=crop&q=90" alt="فرع شبرا مصر" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400 via-dark-400/40 to-transparent"></div>
+                        <div class="absolute bottom-4 right-4 left-4">
+                            <div class="text-xs text-brand-400 font-bold mb-1">الفرع الأول</div>
+                            <h3 id="branch1-name" class="text-xl font-bold text-white">فرع شبرا مصر - الخلفاوي</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p id="branch1-address" class="text-slate-400 text-sm leading-relaxed mb-5">
+                            <i class="fas fa-map-pin text-brand-500 ml-2"></i>
+                            شبرا مصر - الخلفاوي
+                        </p>
+                        <div class="space-y-3">
+                            <a href="tel:01211114895" class="flex items-center gap-3 text-slate-300 hover:text-brand-400 transition-colors text-sm">
+                                <div class="w-9 h-9 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                                    <i class="fas fa-phone text-brand-400 text-xs"></i>
+                                </div>
+                                <span>01211114895</span>
+                            </a>
+                            <a href="https://wa.me/201211114895" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-emerald-400 transition-colors text-sm">
+                                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                    <i class="fab fa-whatsapp text-emerald-400 text-xs"></i>
+                                </div>
+                                <span>واتساب</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- فرع الجيزة -->
+                <div class="branch-card glass card-hover rounded-2xl overflow-hidden slide-up" style="transition-delay:0.1s">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=600&h=300&fit=crop&q=90" alt="فرع الجيزة نصر الدين" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-400 via-dark-400/40 to-transparent"></div>
+                        <div class="absolute bottom-4 right-4 left-4">
+                            <div class="text-xs text-brand-400 font-bold mb-1">الفرع الثاني</div>
+                            <h3 id="branch2-name" class="text-xl font-bold text-white">فرع الجيزة - نصر الدين</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p id="branch2-address" class="text-slate-400 text-sm leading-relaxed mb-5">
+                            <i class="fas fa-map-pin text-brand-500 ml-2"></i>
+                            الجيزة - نصر الدين
+                        </p>
+                        <div class="space-y-3">
+                            <a href="tel:01208449700" class="flex items-center gap-3 text-slate-300 hover:text-brand-400 transition-colors text-sm">
+                                <div class="w-9 h-9 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                                    <i class="fas fa-phone text-brand-400 text-xs"></i>
+                                </div>
+                                <span>01208449700</span>
+                            </a>
+                            <a href="https://wa.me/201208449700" target="_blank" class="flex items-center gap-3 text-slate-300 hover:text-emerald-400 transition-colors text-sm">
+                                <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                    <i class="fab fa-whatsapp text-emerald-400 text-xs"></i>
+                                </div>
+                                <span>واتساب</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- Contact -->
+    <section id="contact" class="relative py-20 sm:py-28">
+        <div class="absolute inset-0 bg-dark-400"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-500/5 rounded-full blur-[120px]"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 slide-up">
+                <span class="inline-block text-xs font-bold text-brand-400 tracking-widest uppercase mb-4 px-4 py-2 rounded-full glass">تواصل معنا</span>
+                <h2 id="contact-title" class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">احنا في خدمتك</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">تواصل معنا مباشرة عبر الواتساب أو اتصل بنا في أي وقت</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="glass card-hover rounded-2xl p-6 sm:p-8 text-center slide-up">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-700/20 flex items-center justify-center mx-auto mb-5 pulse-ring">
+                            <i class="fas fa-phone text-3xl text-brand-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">الرقم الأول</h4>
+                        <p id="phone1" class="text-2xl font-black text-brand-400 mb-6 tracking-wider" dir="ltr">01211114895</p>
+                        <div class="flex gap-3 justify-center">
+                            <a href="https://wa.me/201211114895" target="_blank" class="btn-whatsapp px-5 py-3 rounded-xl text-white font-bold flex items-center gap-2 text-sm">
+                                <i class="fab fa-whatsapp text-lg"></i> واتساب
+                            </a>
+                            <a href="tel:01211114895" class="btn-call px-5 py-3 rounded-xl text-white font-bold flex items-center gap-2 text-sm">
+                                <i class="fas fa-phone"></i> اتصل
+                            </a>
+                        </div>
+                    </div>
+                    <div class="glass card-hover rounded-2xl p-6 sm:p-8 text-center slide-up" style="transition-delay:0.1s">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-700/20 flex items-center justify-center mx-auto mb-5 pulse-ring">
+                            <i class="fas fa-phone text-3xl text-brand-400"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">الرقم الثاني</h4>
+                        <p id="phone2" class="text-2xl font-black text-brand-400 mb-6 tracking-wider" dir="ltr">01208449700</p>
+                        <div class="flex gap-3 justify-center">
+                            <a href="https://wa.me/201208449700" target="_blank" class="btn-whatsapp px-5 py-3 rounded-xl text-white font-bold flex items-center gap-2 text-sm">
+                                <i class="fab fa-whatsapp text-lg"></i> واتساب
+                            </a>
+                            <a href="tel:01208449700" class="btn-call px-5 py-3 rounded-xl text-white font-bold flex items-center gap-2 text-sm">
+                                <i class="fas fa-phone"></i> اتصل
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Social -->
+                <div class="mt-12 slide-up">
+                    <div class="glass rounded-2xl p-8 text-center">
+                        <h4 class="text-lg font-bold text-white mb-6">تابعنا على السوشيال ميديا</h4>
+                        <div class="flex justify-center gap-6">
+                            <a href="https://www.facebook.com/profile.php?id=61568871200869" target="_blank" class="social-icon w-16 h-16 rounded-2xl bg-blue-600/10 border border-blue-600/20 flex items-center justify-center hover:bg-blue-600/20 hover:border-blue-600/40">
+                                <i class="fab fa-facebook-f text-2xl text-blue-400"></i>
+                            </a>
+                            <a href="https://www.instagram.com/elrooknn?utm_source=qr&igsh=MWIxcnFwYjU5dGhoNQ==" target="_blank" class="social-icon w-16 h-16 rounded-2xl border ig-border flex items-center justify-center" style="background:rgba(225,48,108,0.08);">
+                                <i class="fab fa-instagram text-2xl" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@el.rokn2?_r=1&_t=ZS-95tOEgWg9zk" target="_blank" class="social-icon w-16 h-16 rounded-2xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center hover:bg-slate-500/20 hover:border-slate-500/40">
+                                <i class="fab fa-tiktok text-2xl text-slate-300"></i>
+                            </a>
+                        </div>
+                        <div class="flex justify-center gap-8 mt-5 text-xs text-slate-500">
+                            <span><i class="fab fa-facebook-f ml-1 text-blue-400"></i> فيسبوك</span>
+                            <span><i class="fab fa-instagram ml-1" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></i> انستجرام</span>
+                            <span><i class="fab fa-tiktok ml-1 text-slate-400"></i> تيك توك</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
+                            <i class="fas fa-cog text-white"></i>
+                        </div>
+                        <span id="footer-company" class="text-lg font-bold text-white">الركن الهندسي</span>
+                    </div>
+                    <p id="footer-desc" class="text-sm text-slate-500 leading-relaxed">شركة متخصصة في الكاوتش الجديد وكسر الزيرو وقطع الغيار بأعلى جودة.</p>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold text-white mb-4">روابط سريعة</h5>
+                    <div class="space-y-2">
+                        <a href="#services" class="block text-sm text-slate-500 hover:text-brand-400 transition-colors">خدماتنا</a>
+                        <a href="#products" class="block text-sm text-slate-500 hover:text-brand-400 transition-colors">منتجاتنا</a>
+                        <a href="#branches" class="block text-sm text-slate-500 hover:text-brand-400 transition-colors">فروعنا</a>
+                        <a href="#contact" class="block text-sm text-slate-500 hover:text-brand-400 transition-colors">تواصل معنا</a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold text-white mb-4">تواصل</h5>
+                    <div class="space-y-2 text-sm text-slate-500">
+                        <p dir="ltr" class="text-right">01211114895</p>
+                        <p dir="ltr" class="text-right">01208449700</p>
+                        <div class="flex gap-3 pt-2">
+                            <a href="https://www.facebook.com/profile.php?id=61568871200869" target="_blank" class="text-slate-500 hover:text-blue-400 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/elrooknn?utm_source=qr&igsh=MWIxcnFwYjU5dGhoNQ==" target="_blank" class="hover:opacity-80 transition-opacity"><i class="fab fa-instagram" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></i></a>
+                            <a href="https://www.tiktok.com/@el.rokn2" target="_blank" class="text-slate-500 hover:text-slate-300 transition-colors"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-6 text-center">
+                <p class="text-xs text-slate-600">© 2025 الركن الهندسي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/201211114895" target="_blank" class="fixed bottom-6 left-6 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:scale-110 transition-transform">
+        <i class="fab fa-whatsapp text-white text-2xl"></i>
+    </a>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="hideAdminLogin()"></div>
+        <div class="relative glass rounded-2xl p-8 w-full max-w-md glow-orange">
+            <button onclick="hideAdminLogin()" class="absolute top-4 left-4 text-slate-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500/20 to-brand-700/20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-halved text-2xl text-brand-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">لوحة التحكم</h3>
+                <p class="text-sm text-slate-400 mt-1">أدخل كلمة المرور للدخول</p>
+            </div>
+            <div class="space-y-4">
+                <input type="password" id="adminPassword" placeholder="كلمة المرور" class="admin-input w-full px-4 py-3 rounded-xl text-sm" onkeypress="if(event.key==='Enter')adminLogin()">
+                <div id="loginError" class="hidden text-red-400 text-sm text-center">كلمة المرور غلط</div>
+                <button onclick="adminLogin()" class="btn-primary w-full py-3 rounded-xl text-white font-bold text-sm">دخول</button>
+            </div>
         </div>
     </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" class="fixed inset-0 z-[100] hidden items-start justify-center p-4 overflow-y-auto">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="hideAdminPanel()"></div>
+        <div class="relative glass rounded-2xl w-full max-w-4xl my-8 glow-orange-strong">
+            <div class="flex items-center justify-between p-6 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
+                        <i class="fas fa-cog text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">لوحة التحكم</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="resetAllData()" class="px-4 py-2 rounded-lg bg-red-500/10 text-red-400 text-xs font-bold hover:bg-red-500/20 transition-colors">
+                        <i class="fas fa-undo ml-1"></i> إعادة ضبط
+                    </button>
+                    <button onclick="hideAdminPanel()" class="text-slate-400 hover:text-white transition-colors p-2">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2 p-4 border-b border-white/5">
+                <button onclick="switchTab('general')" id="tab-general" class="tab-active px-4 py-2 rounded-lg text-xs font-bold transition-all">عام</button>
+                <button onclick="switchTab('services')" id="tab-services" class="tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all">الخدمات</button>
+                <button onclick="switchTab('branches')" id="tab-branches" class="tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all">الفروع</button>
+                <button onclick="switchTab('contact')" id="tab-contact" class="tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all">التواصل</button>
+                <button onclick="switchTab('social')" id="tab-social" class="tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all">السوشيال</button>
+                <button onclick="switchTab('password')" id="tab-password" class="tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all">تغيير الباسورد</button>
+            </div>
+            <div class="p-6">
+                <!-- General -->
+                <div id="content-general" class="space-y-4">
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">اسم الشركة</label><input type="text" id="adm-company" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان الرئيسي (استخدم | لفصل الكلمتين)</label><input type="text" id="adm-hero-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">وصف رئيسي</label><textarea id="adm-hero-subtitle" rows="3" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">عنوان قسم الخدمات</label><input type="text" id="adm-services-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">وصف قسم الخدمات</label><textarea id="adm-services-subtitle" rows="2" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">عنوان قسم المنتجات</label><input type="text" id="adm-products-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">وصف قسم المنتجات</label><textarea id="adm-products-subtitle" rows="2" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                </div>
+                <!-- Services -->
+                <div id="content-services" class="hidden space-y-6">
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-brand-400">الخدمة الأولى - كاوتش جديد</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان</label><input type="text" id="adm-s1-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">الوصف</label><textarea id="adm-s1-desc" rows="3" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                    </div>
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-red-400">الخدمة الثانية - كسر الزيرو</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان</label><input type="text" id="adm-s2-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">الوصف</label><textarea id="adm-s2-desc" rows="3" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                    </div>
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-emerald-400">الخدمة الثالثة - قطع الغيار</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان</label><input type="text" id="adm-s3-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">الوصف</label><textarea id="adm-s3-desc" rows="3" class="admin-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea></div>
+                    </div>
+                </div>
+                <!-- Branches -->
+                <div id="content-branches" class="hidden space-y-6">
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-brand-400">الفرع الأول</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">اسم الفرع</label><input type="text" id="adm-b1-name" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان</label><input type="text" id="adm-b1-address" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    </div>
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-brand-400">الفرع الثاني</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">اسم الفرع</label><input type="text" id="adm-b2-name" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">العنوان</label><input type="text" id="adm-b2-address" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    </div>
+                </div>
+                <!-- Contact -->
+                <div id="content-contact" class="hidden space-y-4">
+                    <div><label class="block text-xs font-bold text-slate-400 mb-2">عنوان قسم التواصل</label><input type="text" id="adm-contact-title" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                    <div class="glass-light rounded-xl p-5 space-y-4"><h4 class="text-sm font-bold text-brand-400">الرقم الأول</h4><input type="text" id="adm-phone1" class="admin-input w-full px-4 py-3 rounded-xl text-sm" dir="ltr"></div>
+                    <div class="glass-light rounded-xl p-5 space-y-4"><h4 class="text-sm font-bold text-brand-400">الرقم الثاني</h4><input type="text" id="adm-phone2" class="admin-input w-full px-4 py-3 rounded-xl text-sm" dir="ltr"></div>
+                </div>
+                <!-- Social -->
+                <div id="content-social" class="hidden space-y-4">
+                    <div class="glass-light rounded-xl p-5 space-y-4"><h4 class="text-sm font-bold text-blue-400"><i class="fab fa-facebook-f ml-2"></i>فيسبوك</h4><input type="text" id="adm-facebook" class="admin-input w-full px-4 py-3 rounded-xl text-sm" dir="ltr"></div>
+                    <div class="glass-light rounded-xl p-5 space-y-4"><h4 class="text-sm font-bold" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"><i class="fab fa-instagram ml-2"></i>انستجرام</h4><input type="text" id="adm-instagram" class="admin-input w-full px-4 py-3 rounded-xl text-sm" dir="ltr"></div>
+                    <div class="glass-light rounded-xl p-5 space-y-4"><h4 class="text-sm font-bold text-slate-300"><i class="fab fa-tiktok ml-2"></i>تيك توك</h4><input type="text" id="adm-tiktok" class="admin-input w-full px-4 py-3 rounded-xl text-sm" dir="ltr"></div>
+                </div>
+                <!-- Password -->
+                <div id="content-password" class="hidden space-y-4">
+                    <div class="glass-light rounded-xl p-5 space-y-4">
+                        <h4 class="text-sm font-bold text-brand-400">تغيير كلمة المرور</h4>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">كلمة المرور الحالية</label><input type="password" id="adm-old-pass" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">كلمة المرور الجديدة</label><input type="password" id="adm-new-pass" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <div><label class="block text-xs font-bold text-slate-400 mb-2">تأكيد كلمة المرور الجديدة</label><input type="password" id="adm-confirm-pass" class="admin-input w-full px-4 py-3 rounded-xl text-sm"></div>
+                        <button onclick="changePassword()" class="btn-primary px-6 py-3 rounded-xl text-white font-bold text-sm">تغيير كلمة المرور</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/5 flex justify-end gap-3">
+                <button onclick="hideAdminPanel()" class="px-6 py-3 rounded-xl glass text-slate-300 font-bold text-sm hover:bg-white/5 transition-colors">إلغاء</button>
+                <button onclick="saveData()" class="btn-primary px-8 py-3 rounded-xl text-white font-bold text-sm"><i class="fas fa-save ml-2"></i>حفظ التغييرات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[200] hidden">
+        <div class="toast glass px-6 py-3 rounded-xl flex items-center gap-3">
+            <i id="toast-icon" class="fas fa-check-circle text-emerald-400"></i>
+            <span id="toast-text" class="text-sm font-medium text-white">تم الحفظ بنجاح</span>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULTS = {
+            company: 'الركن الهندسي',
+            heroTitle: 'الركن | الهندسي',
+            heroSubtitle: 'خبرة مميزة في الكاوتش الجديد وكسر الزيرو وقطع الغيار بأعلى جودة وأفضل الأسعار. فرعنا يخدمك في شبرا والجيزة.',
+            servicesTitle: 'كل ما تحتاجه لسيارتك',
+            servicesSubtitle: 'نقدم لك أفضل الخدمات بأسعار تنافسية وجودة عالية مع ضمان حقيقي على كل الخدمات',
+            productsTitle: 'منتجاتنا المميزة',
+            productsSubtitle: 'تشكيلة واسعة من الإطارات وقطع الغيار تلبي جميع احتياجاتك',
+            s1Title: 'كاوتش جديد',
+            s1Desc: 'جميع أحجام الكاوتش المتوفرة بأفضل الأسعار. ماركات عالمية وأصلية مع ضمان شامل على كل إطار.',
+            s2Title: 'كسر الزيرو',
+            s2Desc: 'خدمة كسر الزيرو الاحترافية بأحدث الأجهزة والتقنيات مع الحفاظ على ضمان السيارة الأصلي.',
+            s3Title: 'قطع الغيار',
+            s3Desc: 'قطع غيار أصلية وتقليد ممتاز لجميع أنواع السيارات. توفرنا المستمر يضمن لك سرعة الصيانة.',
+            b1Name: 'فرع شبرا مصر - الخلفاوي',
+            b1Address: 'شبرا مصر - الخلفاوي',
+            b2Name: 'فرع الجيزة - نصر الدين',
+            b2Address: 'الجيزة - نصر الدين',
+            contactTitle: 'احنا في خدمتك',
+            phone1: '01211114895',
+            phone2: '01208449700',
+            facebook: 'https://www.facebook.com/profile.php?id=61568871200869',
+            instagram: 'https://www.instagram.com/elrooknn?utm_source=qr&igsh=MWIxcnFwYjU5dGhoNQ==',
+            tiktok: 'https://www.tiktok.com/@el.rokn2?_r=1&_t=ZS-95tOEgWg9zk',
+            password: 'rokn2024'
+        };
+
+        let siteData = {};
+
+        function loadData() {
+            const saved = localStorage.getItem('roknSiteData');
+            siteData = saved ? { ...DEFAULTS, ...JSON.parse(saved) } : { ...DEFAULTS };
+            applyData();
+        }
+
+        function applyData() {
+            document.getElementById('nav-company').textContent = siteData.company;
+            const parts = siteData.heroTitle.split('|');
+            document.getElementById('hero-title').innerHTML = `<span class="text-white">${parts[0].trim()}</span><br><span class="text-glow bg-gradient-to-l from-brand-400 to-brand-600 bg-clip-text text-transparent">${parts[1]?.trim() || ''}</span>`;
+            document.getElementById('hero-subtitle').textContent = siteData.heroSubtitle;
+            document.getElementById('services-title').textContent = siteData.servicesTitle;
+            document.getElementById('services-subtitle').textContent = siteData.servicesSubtitle;
+            document.getElementById('service1-title').textContent = siteData.s1Title;
+            document.getElementById('service1-desc').textContent = siteData.s1Desc;
+            document.getElementById('service2-title').textContent = siteData.s2Title;
+            document.getElementById('service2-desc').textContent = siteData.s2Desc;
+            document.getElementById('service3-title').textContent = siteData.s3Title;
+            document.getElementById('service3-desc').textContent = siteData.s3Desc;
+            document.getElementById('products-title').textContent = siteData.productsTitle;
+            document.getElementById('products-subtitle').textContent = siteData.productsSubtitle;
+            document.getElementById('branch1-name').textContent = siteData.b1Name;
+            document.getElementById('branch1-address').innerHTML = `<i class="fas fa-map-pin text-brand-500 ml-2"></i>${siteData.b1Address}`;
+            document.getElementById('branch2-name').textContent = siteData.b2Name;
+            document.getElementById('branch2-address').innerHTML = `<i class="fas fa-map-pin text-brand-500 ml-2"></i>${siteData.b2Address}`;
+            document.getElementById('contact-title').textContent = siteData.contactTitle;
+            document.getElementById('phone1').textContent = siteData.phone1;
+            document.getElementById('phone2').textContent = siteData.phone2;
+            document.getElementById('footer-company').textContent = siteData.company;
+            document.getElementById('footer-desc').textContent = siteData.heroSubtitle;
+            updateAllLinks();
+        }
+
+        function updateAllLinks() {
+            const p1raw = siteData.phone1.replace(/^0/, '');
+            const p2raw = siteData.phone2.replace(/^0/, '');
+            document.querySelectorAll('a[href*="wa.me/"]').forEach(a => {
+                if (a.href.includes('201211114895')) a.href = `https://wa.me/20${p1raw}`;
+                else if (a.href.includes('201208449700')) a.href = `https://wa.me/20${p2raw}`;
+            });
+            document.querySelectorAll('a[href^="tel:"]').forEach(a => {
+                const num = a.href.replace('tel:', '');
+                if (num === '012111114895' || num === siteData.phone1) a.href = `tel:${siteData.phone1}`;
+                else a.href = `tel:${siteData.phone2}`;
+            });
+            document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.href = siteData.instagram);
+            document.querySelectorAll('a[href*="facebook.com"]').forEach(a => a.href = siteData.facebook);
+            document.querySelectorAll('a[href*="tiktok.com"]').forEach(a => a.href = siteData.tiktok);
+            const floatBtn = document.querySelector('a.fixed.bottom-6');
+            if (floatBtn) floatBtn.href = `https://wa.me/20${p1raw}`;
+        }
+
+        function showAdminLogin() {
+            const m = document.getElementById('adminLoginModal');
+            m.classList.remove('hidden'); m.classList.add('flex');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').classList.add('hidden');
+            setTimeout(() => document.getElementById('adminPassword').focus(), 100);
+        }
+        function hideAdminLogin() { const m = document.getElementById('adminLoginModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+        function adminLogin() {
+            if (document.getElementById('adminPassword').value === siteData.password) { hideAdminLogin(); showAdminPanel(); }
+            else document.getElementById('loginError').classList.remove('hidden');
+        }
+
+        function showAdminPanel() {
+            const m = document.getElementById('adminPanelModal');
+            m.classList.remove('hidden'); m.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            populateAdminFields();
+        }
+        function hideAdminPanel() {
+            const m = document.getElementById('adminPanelModal');
+            m.classList.add('hidden'); m.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function populateAdminFields() {
+            document.getElementById('adm-company').value = siteData.company;
+            document.getElementById('adm-hero-title').value = siteData.heroTitle;
+            document.getElementById('adm-hero-subtitle').value = siteData.heroSubtitle;
+            document.getElementById('adm-services-title').value = siteData.servicesTitle;
+            document.getElementById('adm-services-subtitle').value = siteData.servicesSubtitle;
+            document.getElementById('adm-products-title').value = siteData.productsTitle;
+            document.getElementById('adm-products-subtitle').value = siteData.productsSubtitle;
+            document.getElementById('adm-s1-title').value = siteData.s1Title;
+            document.getElementById('adm-s1-desc').value = siteData.s1Desc;
+            document.getElementById('adm-s2-title').value = siteData.s2Title;
+            document.getElementById('adm-s2-desc').value = siteData.s2Desc;
+            document.getElementById('adm-s3-title').value = siteData.s3Title;
+            document.getElementById('adm-s3-desc').value = siteData.s3Desc;
+            document.getElementById('adm-b1-name').value = siteData.b1Name;
+            document.getElementById('adm-b1-address').value = siteData.b1Address;
+            document.getElementById('adm-b2-name').value = siteData.b2Name;
+            document.getElementById('adm-b2-address').value = siteData.b2Address;
+            document.getElementById('adm-contact-title').value = siteData.contactTitle;
+            document.getElementById('adm-phone1').value = siteData.phone1;
+            document.getElementById('adm-phone2').value = siteData.phone2;
+            document.getElementById('adm-facebook').value = siteData.facebook;
+            document.getElementById('adm-instagram').value = siteData.instagram;
+            document.getElementById('adm-tiktok').value = siteData.tiktok;
+            document.getElementById('adm-old-pass').value = '';
+            document.getElementById('adm-new-pass').value = '';
+            document.getElementById('adm-confirm-pass').value = '';
+        }
+
+        function switchTab(tab) {
+            ['general','services','branches','contact','social','password'].forEach(t => {
+                document.getElementById(`tab-${t}`).className = t === tab ? 'tab-active px-4 py-2 rounded-lg text-xs font-bold transition-all' : 'tab-inactive px-4 py-2 rounded-lg text-xs font-bold transition-all';
+                document.getElementById(`content-${t}`).classList.toggle('hidden', t !== tab);
+            });
+        }
+
+        function saveData() {
+            siteData.company = document.getElementById('adm-company').value;
+            siteData.heroTitle = document.getElementById('adm-hero-title').value;
+            siteData.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
+            siteData.servicesTitle = document.getElementById('adm-services-title').value;
+            siteData.servicesSubtitle = document.getElementById('adm-services-subtitle').value;
+            siteData.productsTitle = document.getElementById('adm-products-title').value;
+            siteData.productsSubtitle = document.getElementById('adm-products-subtitle').value;
+            siteData.s1Title = document.getElementById('adm-s1-title').value;
+            siteData.s1Desc = document.getElementById('adm-s1-desc').value;
+            siteData.s2Title = document.getElementById('adm-s2-title').value;
+            siteData.s2Desc = document.getElementById('adm-s2-desc').value;
+            siteData.s3Title = document.getElementById('adm-s3-title').value;
+            siteData.s3Desc = document.getElementById('adm-s3-desc').value;
+            siteData.b1Name = document.getElementById('adm-b1-name').value;
+            siteData.b1Address = document.getElementById('adm-b1-address').value;
+            siteData.b2Name = document.getElementById('adm-b2-name').value;
+            siteData.b2Address = document.getElementById('adm-b2-address').value;
+            siteData.contactTitle = document.getElementById('adm-contact-title').value;
+            siteData.phone1 = document.getElementById('adm-phone1').value;
+            siteData.phone2 = document.getElementById('adm-phone2').value;
+            siteData.facebook = document.getElementById('adm-facebook').value;
+            siteData.instagram = document.getElementById('adm-instagram').value;
+            siteData.tiktok = document.getElementById('adm-tiktok').value;
+            localStorage.setItem('roknSiteData', JSON.stringify(siteData));
+            applyData();
+            showToast('تم حفظ التغييرات بنجاح', 'success');
+        }
+
+        function changePassword() {
+            const oldP = document.getElementById('adm-old-pass').value;
+            const newP = document.getElementById('adm-new-pass').value;
+            const confP = document.getElementById('adm-confirm-pass').value;
+            if (oldP !== siteData.password) { showToast('كلمة المرور الحالية غلط', 'error'); return; }
+            if (newP.length < 4) { showToast('كلمة المرور الجديدة قصيرة جداً', 'error'); return; }
+            if (newP !== confP) { showToast('كلمة المرور الجديدة مش متطابقة', 'error'); return; }
+            siteData.password = newP;
+            localStorage.setItem('roknSiteData', JSON.stringify(siteData));
+            document.getElementById('adm-old-pass').value = '';
+            document.getElementById('adm-new-pass').value = '';
+            document.getElementById('adm-confirm-pass').value = '';
+            showToast('تم تغيير كلمة المرور بنجاح', 'success');
+        }
+
+        function resetAllData() {
+            if (confirm('هل أنت متأكد من إعادة ضبط كل البيانات للوضع الافتراضي؟')) {
+                localStorage.removeItem('roknSiteData');
+                siteData = { ...DEFAULTS };
+                applyData(); populateAdminFields();
+                showToast('تم إعادة الضبط بنجاح', 'success');
+            }
+        }
+
+        function showToast(text, type = 'success') {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = text;
+            document.getElementById('toast-icon').className = type === 'success' ? 'fas fa-check-circle text-emerald-400' : 'fas fa-exclamation-circle text-red-400';
+            t.classList.remove('hidden');
+            const inner = t.querySelector('.toast');
+            inner.style.animation = 'none'; inner.offsetHeight; inner.style.animation = '';
+            setTimeout(() => t.classList.add('hidden'), 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            document.getElementById('menuIcon').className = menu.classList.contains('hidden') ? 'fas fa-bars text-lg' : 'fas fa-times text-lg';
+        }
+
+        window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('nav-scrolled', window.scrollY > 50); });
+
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.slide-up').forEach(el => observer.observe(el));
+
+        function animateCounters() {
+            document.querySelectorAll('.counter').forEach(c => {
+                const target = parseInt(c.dataset.target);
+                const step = target / 125; let cur = 0;
+                const update = () => { cur += step; if (cur < target) { c.textContent = Math.floor(cur).toLocaleString('ar-EG'); requestAnimationFrame(update); } else { c.textContent = target.toLocaleString('ar-EG') + '+'; } };
+                update();
+            });
+        }
+        const cObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { animateCounters(); cObs.disconnect(); } }); }, { threshold: 0.5 });
+        document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
+
+        loadData();
+    </script>
 </body>
 </html>
